@@ -15,7 +15,7 @@ sub to_lehmer {
     for my $i (0 .. $#seq) {
         $seq[$_] > $seq[$i] and $seq[$_]-- for $i .. $#seq;
     }
-    return @seq;
+    return @seq
 }
 
 
@@ -27,7 +27,7 @@ sub to_order {
         $fact_radix *= $i if $i;
         $order      += $fact_radix * $lehmer[-$i - 1];
     }
-    return 1 + $order;
+    return 1 + $order
 }
 
 
@@ -40,7 +40,15 @@ sub find_first {
         push @{ $to_numbers{$char} }, $i;
     }
 
-    my @search_num = map shift @{ $to_numbers{$_} }, split //, SEARCH;
+    my @chars = split //, SEARCH;
+    my %char_count;
+    $char_count{$_}++ for @chars;
+
+    # Repeated characters are picked from left, the others from right.
+    my @search_num = map { splice @{ $to_numbers{$_} },
+                                  $char_count{$_} > 1 ? 0 : -1,
+                                  1
+                         } @chars;
 
     my (@prefix, @suffix);
     for my $remaining (sort { $a <=> $b } map @$_, values %to_numbers) {
@@ -50,7 +58,7 @@ sub find_first {
             push @suffix, $remaining;
         }
     }
-    return (@prefix, @search_num, @suffix);
+    return (@prefix, @search_num, @suffix)
 }
 
 
