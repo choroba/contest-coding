@@ -4,12 +4,6 @@ use strict;
 use feature qw{ say };
 
 
-use constant {
-    STRING => 'Contest Coding',
-    SEARCH => 'tsetnoC',
-};
-
-
 sub to_lehmer {
     my @seq = @_;
     for my $i (0 .. $#seq) {
@@ -31,35 +25,86 @@ sub to_order {
 }
 
 
-sub find_first {
-    my %to_characters;
-    my %to_numbers;
-    for my $i (0 .. length(STRING) - 1) {
-        my $char = substr STRING, $i, 1;
-        $to_characters{$i} = $char;
-        push @{ $to_numbers{$char} }, $i;
+sub explode {
+    my ($n, $infix) = @_;
+    if ($n < $#{$infix}) {
+        my $inners = splice @$infix, $n, 1, undef;
+        my @perm;
+        for my $inner (@$inners) {
+            splice @$infix, $n, 1, $inner;
+            push @perm, @{ explode($n + 1, [@$infix]) };
+        }
+        return \@perm
+
+    } else {
+        my $last = pop @$infix;
+        return [ map [ @$infix, $_ ], @$last ]
     }
+}
 
-    my @chars = split //, SEARCH;
-    my %char_count;
-    $char_count{$_}++ for @chars;
 
-    # Repeated characters are picked from left, the others from right.
-    my @search_num = map { splice @{ $to_numbers{$_} },
-                                  $char_count{$_} > 1 ? 0 : -1,
-                                  1
-                         } @chars;
-
+sub wrap {
+    my ($candidate, $to_numbers) = @_;
     my (@prefix, @suffix);
-    for my $remaining (sort { $a <=> $b } map @$_, values %to_numbers) {
-        if ($remaining < $search_num[0]) {
+    for my $remaining ( sort { $a <=> $b }
+                        grep { my $x = $_; not grep $x == $_, @$candidate }
+                        map @$_,
+                        values %$to_numbers) {
+        if ($remaining < $candidate->[0]) {
             push @prefix, $remaining;
         } else {
             push @suffix, $remaining;
         }
     }
-    return (@prefix, @search_num, @suffix)
+    return [ @prefix, @$candidate, @suffix ]
 }
 
 
-say to_order(to_lehmer(find_first()));
+sub compare {
+    my $i = 0;
+    $i++ while $a->[$i] == $b->[$i];
+    $a->[$i] <=> $b->[$i]
+}
+
+
+sub not_repeated {
+    my $seq = shift;
+    my %uniq;
+    undef @uniq{@$seq};
+    return @$seq == keys %uniq
+}
+
+
+sub find_first {
+    my ($string, $search) = @_;
+    my %to_numbers;
+    for my $i (0 .. length($string) - 1) {
+        my $char = substr $string, $i, 1;
+        push @{ $to_numbers{$char} }, $i;
+    }
+
+    my @infix = map [@{ $to_numbers{$_} }], split //, $search;
+    my @perm  = grep not_repeated($_), @{ explode(0, [@infix]) };
+    my @full  = sort compare map wrap($_, \%to_numbers), @perm;
+    return @{ $full[0] }
+}
+
+
+say to_order(to_lehmer(find_first('Contest Coding', 'tsetnoC')));
+
+
+exit unless @ARGV;
+
+
+use Test::More;
+
+
+is_deeply([ find_first('abaca', 'aa') ],
+          [ qw[ 0 1 2 4 3 ] ],
+          'aa');
+
+is_deeply([ find_first('abaca', 'ab') ],
+          [ qw[ 0 1 2 3 4 ] ],
+          'ab');
+
+done_testing();
