@@ -3,6 +3,10 @@ use warnings;
 use strict;
 use feature qw(say);
 
+# Solution: I walk the triangle from the bottom. To each number, the
+# minimum of its possible adjacent numbers is added. That way, the
+# minimal sum can be retrieved from the top number.
+
 use List::Util qw(min);
 
 my @triangle;

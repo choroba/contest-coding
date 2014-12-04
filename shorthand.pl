@@ -2,6 +2,11 @@
 use warnings;
 use strict;
 
+# The text is processed line by line. Each line is split into groups
+# of alphabetic or non-alphabetic characters. Then, in each group,
+# repeated letters are reduced and vowels preceded by anything are
+# removed using regular expressions.
+
 use Text::Unaccent::PurePerl qw{ unac_string };
 
 binmode DATA,   'utf8';

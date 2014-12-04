@@ -2,6 +2,13 @@
 use warnings;
 use strict;
 
+# Solution: First, a graph is constructed that represents all possible
+# pairs of numbers. It is then walked recursively. Surprisingly, a
+# solution is found in less than 3 seconds, and slightly modified, it
+# can generate all the possible sequences starting at a given number
+# in less than 5 minutes on my machine.
+
+
 my $max = 40;
 
 my $max_sq = 2 * $max - 1;

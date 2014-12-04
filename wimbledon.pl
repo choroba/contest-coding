@@ -108,3 +108,37 @@ my $points = 0;
 $points += $w->{points}[$_] for 0, 1;
 my $percent = $w->{points}[ $w->{winner} ] / $points;
 print $percent, "\n";
+
+__END__
+
+Solution:
+
+I used the Object Oriented approach this time. The object represents
+the match score, it handles all the transitions from games to sets
+etc. The minimal percentage of points means you lose as much as you
+can, and if you win, you still give the maximal possible number of
+points to the opponent. So, the game goes like this:
+
+|  Game | Set | Match | Comment         |
+|-------+-----+-------+-----------------|
+|  0:40 | 0:1 |       |                 |
+|  0:40 | 0:2 |       |                 |
+|  0:40 | 0:3 |       |                 |
+|  0:40 | 0:4 |       |                 |
+|  0:40 | 0:5 |       |                 |
+|  0:40 | 0:6 |   0:1 | Set lost        |
+|       |     |   0:2 | Repeated.       |
+|  0:40 | 0:1 |   0:2 |                 |
+|  0:40 | 0:2 |   0:2 |                 |
+|  0:40 | 0:3 |   0:2 |                 |
+|  0:40 | 0:4 |   0:2 |                 |
+|  0:40 | 0:5 |   0:2 |                 |
+| 40:30 | 1:5 |   0:2 |                 |
+| 40:30 | 2:5 |   0:2 |                 |
+| 40:30 | 3:5 |   0:2 |                 |
+| 40:30 | 4:5 |   0:2 |                 |
+| 40:30 | 5:5 |   0:2 |                 |
+| 40:30 | 6:5 |   0:2 |                 |
+|  0:40 | 6:6 |   0:2 | Tiebreak        |
+|   7:6 |     |   1:2 | Set won.        |
+|       |     |   3:2 | Repeated twice. |

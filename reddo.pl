@@ -3,6 +3,12 @@ use warnings;
 use strict;
 use feature qw(say);
 
+# For a given input n, the programme loops over all i <= n / 2 and
+# tries to combine the combinations for i and (n - i). Some of them
+# might appear for several times, so before returning all the
+# possibilities, it makes them unique. The number of combinations for
+# every number is cached to speed up the computation.
+
 use Memoize;
 
 

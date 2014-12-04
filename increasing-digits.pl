@@ -3,6 +3,10 @@ use warnings;
 use strict;
 use feature qw(say);
 
+# The programme just goes over all the possible numbers and checks
+# whether their conform to the condition.
+
+
 sub increases {
     my @digits = split //, shift;
     for my $i (0 .. $#digits - 1) {

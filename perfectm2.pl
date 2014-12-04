@@ -4,6 +4,8 @@ use strict;
 use integer;
 use feature qw(say);
 
+# Should be pretty fast.
+
 my $perfect = 0;
 my $p       = 2;
 my @primes  = 2;

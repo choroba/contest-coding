@@ -2,6 +2,32 @@
 use warnings;
 use strict;
 
+=head1 Comments
+
+In standard brainf**k specifications, comma is used instead of the
+quote to read input. Also, if you want to use the quote, you cannot
+use it in comments in the code. Moreover, the editor you use replaces
+multiple - signs with n- and m-dashes. I had to expand them back to
+minuses to get the programme right.
+
+The behaviour of the interpreter was not specified for cases like
+negative data byte, programme counter, or data pointer.
+
+I also tested the interpreter on the following programme:
+
+ ,>,[-<+>]<.
+
+It reads two bytes from input and writes their sum to the output,
+e.g. for the string "01", it returns "a" (as 48 + 49 = 97).
+
+If you set the environment variable BF_DEBUG to 1, the interpreter
+outputs PC and DP after each tick to stderr.
+
+You need the Switch::Plain module (easily installable by "cpan
+Switch::Plain").
+
+=cut
+
 use Switch::Plain;
 
 

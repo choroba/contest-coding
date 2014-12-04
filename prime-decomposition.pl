@@ -3,6 +3,11 @@ use warnings;
 use strict;
 use feature qw(say state);
 
+# The program uses an iterator next_prime. It returns the next prime
+# every time it is called. The number 3310 (you can use a different
+# number as the command line argument) is divided by each prime while it
+# is divisible, until the result is 1. All the primes that succesfully
+# divided the number are then printed out.
 
 sub next_prime {
     state @primes;

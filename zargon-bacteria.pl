@@ -3,6 +3,12 @@ use warnings;
 use strict;
 use feature qw(say);
 
+# Solution: I just keep an array that represents the number of
+# bacteria in each generation. For each step, every bacteria moves to
+# the older generations, and possibly generates new bacteria. I had to
+# switch to the 'bignum' as the numbers were too high for a standard
+# integer.
+
 use List::Util qw( sum );
 use bigint;
 

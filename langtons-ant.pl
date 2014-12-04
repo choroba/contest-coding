@@ -134,6 +134,7 @@ use feature qw{ say };
 }
 
 
+# Change to Langton::Ant::Debug to see the grid.
 my $ant = 'Langton::Ant'->new;
 $ant->move for 1 .. 1000;
 say $ant->count_black;

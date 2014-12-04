@@ -2,6 +2,9 @@
 use warnings;
 use strict;
 
+# Solution: The simplest one, brute force. Count the number of factors
+# for each number starting from 2 until you find the solution.
+
 sub factors {
     my $n = shift;
     my $factors = 2;

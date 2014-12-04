@@ -2,6 +2,11 @@
 use warnings;
 use strict;
 
+# Run with any argument to get the details.
+#
+# I suppose an empty plane should not travel from one airport to the
+# other out of schedule.
+
 use constant {
     W          => 'Washington DC',
     B          => 'Boston',

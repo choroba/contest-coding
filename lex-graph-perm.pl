@@ -3,6 +3,17 @@ use warnings;
 use strict;
 use feature qw{ say };
 
+=head1 Solution
+
+The algorithm works in three steps:
+
+1. It finds the first permutation that contains the given substring.
+
+2. It converts the permutation to its Lehmer code.
+
+3. It converts the Lehmer code into the sequence position.
+
+=cut
 
 sub to_lehmer {
     my @seq = @_;

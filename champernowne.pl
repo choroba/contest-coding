@@ -4,6 +4,12 @@ use strict;
 
 use Math::BigInt;
 
+# The algorithm: First, the non-reduced fraction is generated ($ch /
+# $denominator). The denominator is divisible only by powers of 2 and
+# 5, so both the numbers are divided by 2 and 5 while possible
+# (i.e. until the modulo is not zero or the number of divisions is
+# greater then the length).
+
 sub generate {
     my $length = shift;
     my $n  = 1;

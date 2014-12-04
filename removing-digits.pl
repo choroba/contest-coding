@@ -3,6 +3,11 @@ use warnings;
 use strict;
 use feature qw(say);
 
+# Solution: The number can start with 2, 3, 5, or 7 (single digit
+# primes). The following digit can be 1, 3, 7, or 9 (numbers ending in
+# 5 are divisible by 5).  The program tries to add each digit to each
+# shorter prime, if the result is a prime, it is stored for the next
+# round. The program ends if there are no primes for the next round.
 
 sub is_prime {
     my $n = shift;

@@ -3,6 +3,14 @@ use warnings;
 use strict;
 use feature qw(say state);
 
+# Make a graph of all possible neighbours, traverse it recursively to
+# find a solution. I also made an observation that except for 1, no
+# odd numbers can have a solution, because in 1 ..  2m+1, there are
+# m+1 odd numbers, so at least two of them must neighbour, but their
+# sum is divisible by 2. I keep the list of primes and the graph of
+# possible transitions needed in the previous step, so I only need to
+# add one prime and transitions to one number in each step.
+
 my %is_prime = (2 => 1);
 
 $|--; # No buffering, for easier debugging and checking.

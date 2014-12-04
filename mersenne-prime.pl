@@ -3,6 +3,10 @@ use warnings;
 use strict;
 use feature qw(say);
 
+# Algorithm: The numbers 1, 2, 3 etc. are inspected one by one. If the
+# number is prime, it is taken as the base of a Mersenne number. If
+# the number is not prime, the algorithm reports it and stops.
+
 sub is_prime {
     my $n = shift;
     return 0 if $n <= 1;

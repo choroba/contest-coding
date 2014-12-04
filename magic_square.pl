@@ -2,6 +2,8 @@
 use warnings;
 use strict;
 
+# Implements the De la Loubère method.
+
 my $sq;
 my ($x, $y) = (0, 4);
 for my $num (1 .. 81) {

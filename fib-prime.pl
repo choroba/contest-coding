@@ -3,6 +3,8 @@ use warnings;
 use strict;
 use feature qw{ state say };
 
+# Solution: Repeat 11 times: using an iterator, a Fibonacci number is
+# generated until it is a prime.
 
 sub fibonacci {
     state $seq = [0, 1];
